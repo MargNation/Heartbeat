@@ -18,10 +18,15 @@ var canvas = document.getElementById('canvas'),
 canvas.width = canvasWidth;
 canvas.height = canvasHeight;
 
+function random(min, max) {
+	return Math.floor(Math.random() * (max - min) + min);
+}
+
 function Heartbeat() {
 	this.x = 0;
 	this.y = 240;
 	this.lifespan = 0;
+	this.modulo = random(40, 90);
 	this.coordinates = [];
 	this.coordinateCount = 1;
 
@@ -39,7 +44,7 @@ Heartbeat.prototype.update = function(index) {
 	if (this.y == 140) {
 		this.y = 340;
 	}
-	if (this.lifespan % 80 == 0) {
+	if (this.lifespan % this.modulo == 0) {
 		this.y = 140;
 	}
 
@@ -73,7 +78,7 @@ function loop() {
 
 	var i = heartbeats.length;
 	while (i--) {
-		if (heartbeats[i].lifespan < 450) {
+		if (heartbeats[i].lifespan < 250) {
 			heartbeats[i].draw();
 			heartbeats[i].update(i);
 		} else {
